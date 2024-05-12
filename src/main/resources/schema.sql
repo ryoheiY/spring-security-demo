@@ -4,6 +4,6 @@ create unique index ix_auth_username on authorities (username,authority);
 
 create table customer(
     email varchar(50) not null primary key ,
-    pwd varchar(50) not null ,
+    pwd varchar(500) not null ,
     role varchar(50) not null
 );

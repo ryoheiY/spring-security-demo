@@ -30,55 +30,20 @@ public class SecurityConfig {
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
-        http.authorizeHttpRequests(auth -> auth
+        http.csrf().disable().
+                authorizeHttpRequests(auth -> auth
                         .requestMatchers("/myAccount", "/myBalance", "/myLoan", "/myCards").authenticated()
-                        .anyRequest().permitAll()
+                        .requestMatchers("/notices","/contact","/register").permitAll()
                 ).formLogin().and().
                 httpBasic();
 
         return http.build();
     }
 
-//    /**
-//     * インメモリのユーザ情報を作成
-//     * @return InMemoryUserDetailsManager
-//     */
-//    @Bean
-//    public InMemoryUserDetailsManager inMemoryUserDetailsManager() {
-//        /**UserDetails admin = User.withDefaultPasswordEncoder()
-//                .username("admin")
-//                .password("12345")
-//                .authorities("admin")
-//                .build();
-//
-//        UserDetails user = User.withDefaultPasswordEncoder()
-//                .username("user")
-//                .password("123456")
-//                .authorities("read")
-//                .build();
-//         **/
-//
-//        UserDetails admin = User.withUsername("admin")
-//                .password("12345")
-//                .authorities("admin")
-//                .build();
-//
-//        UserDetails user = User.withUsername("user")
-//                .password("123456")
-//                .authorities("read")
-//                .build();
-//
-//        return new InMemoryUserDetailsManager(admin, user);
-//    }
-
-//    @Bean
-//    public UserDetailsService userDetailsService(DataSource dataSource) {
-//        return new JdbcUserDetailsManager(dataSource);
-//    }
-
     @Bean
     public PasswordEncoder passwordEncoder() {
-        return NoOpPasswordEncoder.getInstance();
+
+        return new BCryptPasswordEncoder();
     }
 
 }
