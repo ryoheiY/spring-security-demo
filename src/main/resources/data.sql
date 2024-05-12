@@ -9,3 +9,6 @@ VALUES ('user1',
         'read'),
        ('yama',
         'admin');
+
+INSERT INTO customer VALUES ('tanka', '1234', 'read');
+INSERT INTO customer VALUES ('tanka2', '1234', 'read');
